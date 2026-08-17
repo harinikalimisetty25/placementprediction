@@ -1,58 +1,198 @@
 {% extends "base.html" %}
 
-
 {% block title %}Dataset{% endblock %}
-
 
 {% block content %}
 
-
 <div class="page">
 
+    <!-- PAGE TITLE -->
 
-   <h1>Placement Dataset</h1>
-
-
-   <div class="cards">
+    <h1>Placement Dataset</h1>
 
 
-       <div class="card">
-           <h3>Total Students</h3>
-           <p>Dataset records will appear here.</p>
-       </div>
+    <!-- =====================================================
+         DATASET STATISTICS
+         ===================================================== -->
+
+    <div class="cards">
+
+        <!-- TOTAL STUDENTS -->
+
+        <div class="card">
+
+            <h3>Total Students</h3>
+
+            <h2>{{ total_students }}</h2>
+
+            <p>
+                Total number of records in the dataset.
+            </p>
+
+        </div>
 
 
-       <div class="card">
-           <h3>Total Features</h3>
-           <p>Number of columns will appear here.</p>
-       </div>
+        <!-- TOTAL FEATURES -->
+
+        <div class="card">
+
+            <h3>Total Features</h3>
+
+            <h2>{{ total_features }}</h2>
+
+            <p>
+                Total number of columns in the dataset.
+            </p>
+
+        </div>
 
 
-       <div class="card">
-           <h3>Missing Values</h3>
-           <p>Missing-value count will appear here.</p>
-       </div>
+        <!-- MISSING VALUES -->
+
+        <div class="card">
+
+            <h3>Missing Values</h3>
+
+            <h2>{{ missing_values }}</h2>
+
+            <p>
+                Total missing values in the dataset.
+            </p>
+
+        </div>
 
 
-       <div class="card">
-           <h3>Duplicate Records</h3>
-           <p>Duplicate count will appear here.</p>
-       </div>
+        <!-- DUPLICATE RECORDS -->
+
+        <div class="card">
+
+            <h3>Duplicate Records</h3>
+
+            <h2>{{ duplicate_records }}</h2>
+
+            <p>
+                Total duplicate rows in the dataset.
+            </p>
+
+        </div>
+
+    </div>
 
 
-   </div>
+    <!-- =====================================================
+         DATASET OPERATIONS
+         ===================================================== -->
+
+    <h2 class="dataset-operation-title">
+        Dataset Operations
+    </h2>
 
 
-   <h2>Dataset Operations</h2>
+    <div class="dataset-buttons">
 
 
-   <button>Upload Dataset</button>
-   <button>View Dataset</button>
-   <button>Dataset Summary</button>
+        <!-- =================================================
+             SELECT DATASET
+             ================================================= -->
+
+        <form
+            action="{{ url_for('upload_dataset') }}"
+            method="POST"
+            enctype="multipart/form-data"
+            class="upload-form"
+        >
+
+            <input
+                type="file"
+                name="dataset"
+                id="datasetFile"
+                accept=".csv"
+                required
+            >
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Upload Dataset
+            </button>
+
+        </form>
+
+
+        <!-- =================================================
+             VIEW DATASET
+             ================================================= -->
+
+        <a
+            href="{{ url_for('view_dataset') }}"
+            class="btn"
+        >
+            View Dataset
+        </a>
+
+
+        <!-- =================================================
+             DATASET SUMMARY
+             ================================================= -->
+
+        <a
+            href="{{ url_for('dataset_summary') }}"
+            class="btn"
+        >
+            Dataset Summary
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         SELECTED FILE
+         ===================================================== -->
+
+    <p id="fileName" class="file-name"></p>
+
+
+    <!-- =====================================================
+         MESSAGE
+         ===================================================== -->
+
+    {% if message %}
+
+        <div class="upload-message">
+
+            {{ message }}
+
+        </div>
+
+    {% endif %}
 
 
 </div>
 
 
-{% endblock %}
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
 
+<script>
+
+document
+    .getElementById("datasetFile")
+    .addEventListener("change", function () {
+
+        if (this.files.length > 0) {
+
+            document
+                .getElementById("fileName")
+                .innerText =
+                "Selected file: " +
+                this.files[0].name;
+
+        }
+
+    });
+
+</script>
+
+{% endblock %}

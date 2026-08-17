@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}View Dataset{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <!-- PAGE TITLE -->
+
+    <h1>View Placement Dataset</h1>
+
+
+    {% if message %}
+
+        <!-- MESSAGE IF NO DATASET -->
+
+        <div class="upload-message">
+
+            {{ message }}
+
+        </div>
+
+
+    {% else %}
+
+        <!-- DATASET INFORMATION -->
+
+        <div class="card">
+
+            <h3>Dataset Information</h3>
+
+            <p>
+                Total records:
+                <strong>{{ total_rows }}</strong>
+            </p>
+
+            <p>
+                Showing first 100 records.
+            </p>
+
+        </div>
+
+
+        <!-- DATASET TABLE -->
+
+        <div class="table-container">
+
+            {{ table | safe }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- BACK BUTTON -->
+
+    <div style="margin-top: 25px;">
+
+        <a
+            href="{{ url_for('dataset') }}"
+            class="btn"
+        >
+            Back to Dataset
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Dataset Summary{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <!-- PAGE TITLE -->
+
+    <h1>Dataset Summary</h1>
+
+
+    {% if message %}
+
+        <!-- MESSAGE -->
+
+        <div class="upload-message">
+
+            {{ message }}
+
+        </div>
+
+
+    {% else %}
+
+        <!-- SUMMARY -->
+
+        <div class="card">
+
+            <h3>Statistical Summary</h3>
+
+            <p>
+                The table below shows the statistical
+                summary of the uploaded dataset.
+            </p>
+
+        </div>
+
+
+        <!-- SUMMARY TABLE -->
+
+        <div class="table-container">
+
+            {{ summary | safe }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- BACK BUTTON -->
+
+    <div style="margin-top: 25px;">
+
+        <a
+            href="{{ url_for('dataset') }}"
+            class="btn"
+        >
+            Back to Dataset
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
